@@ -1,0 +1,94 @@
+
+
+.recipeList {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 0;
+}
+
+.title {
+  margin-bottom: 16px;
+}
+
+.subtitle {
+  color: var(--color-secondary);
+}
+
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+  
+  @include tablet {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.searchBar {
+  display: flex;
+  gap: 12px;
+  flex: 1;
+}
+
+.searchInput {
+  flex-grow: 1;
+}
+
+.searchButton {
+  white-space: nowrap;
+}
+
+.typeFilter {
+  display: flex;
+  gap: 12px;
+  width: 100%;
+  
+  @include tablet {
+    width: auto;
+  }
+}
+
+.typeDropdown {
+  flex-grow: 1;
+  min-width: 200px;
+}
+
+.filterButton {
+  white-space: nowrap;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.gridItem {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.loaderContainer {
+  display: flex;
+  justify-content: center;
+  padding: 48px 0;
+}
+
+.error, .noResults {
+  text-align: center;
+  padding: 48px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}

@@ -1,0 +1,94 @@
+
+
+.multiDropdown {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.multiDropdownInput {
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+}
+
+.multiDropdownOptions {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background: var(--dropdown-options-bg);
+  box-shadow: var(--dropdown-shadow);
+  z-index: 10;
+  max-height: 144px;
+  overflow-y: auto;
+  border-radius: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+}
+
+.multiDropdownOption {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 14px 12px;
+  width: 100%;
+  height: 48px;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--dropdown-option-text);
+  cursor: pointer;
+  box-sizing: border-box;
+  text-align: left;
+  align-self: stretch;
+  flex: none;
+  flex-grow: 0;
+  transition: background-color 0.3s ease;
+  
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.multiDropdownOptionSelected {
+  color: var(--dropdown-option-text-selected);
+}
+
+.multiDropdownOptionDisabled {
+  color: var(--dropdown-option-text-disabled);
+  cursor: not-allowed;
+}
+
+.multiDropdownArrow {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  position: relative;
+}
+
+.multiDropdownArrowIcon {
+  width: 19.33px;
+  height: 10.09px;
+  background-color: var(--color-secondary);
+  mask: url("data:image/svg+xml,%3Csvg width='20' height='11' viewBox='0 0 20 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.998947 0.998947L9.9996 9.99895L19.0002 0.998947' stroke='black' stroke-width='1.33333'/%3E%3C/svg%3E");
+  -webkit-mask: url("data:image/svg+xml,%3Csvg width='20' height='11' viewBox='0 0 20 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.998947 0.998947L9.9996 9.99895L19.0002 0.998947' stroke='black' stroke-width='1.33333'/%3E%3C/svg%3E");
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  transform: translateY(0.3px);
+  position: absolute;
+  left: calc(50% - 19.33px/2);
+  top: calc(50% - 10.09px/2 + 0.3px);
+}

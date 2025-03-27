@@ -1,0 +1,183 @@
+.recipeDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; 
+}
+
+.backButton {
+  align-self: flex-start;
+}
+
+.recipeTitle {
+  margin-bottom: 8px;
+}
+
+.recipeTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.recipeTag {
+  display: inline-block;
+  padding: 4px 12px;
+  background-color: var(--color-accent);
+  color: white;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.recipeHeader {
+  display: flex;
+  gap: 32px; 
+  align-items: flex-start; 
+
+  @include mobile { 
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.imageContainer {
+  flex-shrink: 0; 
+  max-width: 500px; 
+  width: 100%; 
+
+  @include tablet {
+     max-width: 400px; 
+  }
+
+   @include mobile {
+     max-width: 100%; 
+   }
+}
+
+.recipeImage {
+  display: block; 
+  width: 100%; 
+  height: auto; 
+  border-radius: 8px;
+  object-fit: contain; 
+}
+
+.metadataContainer {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 20px 28px; 
+  flex-grow: 1; 
+  padding-top: 8px; 
+
+   @include mobile {
+     padding-top: 0; 
+   }
+}
+
+.metadataItem, .metadataItemWide {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.metadataItemWide {
+   flex-basis: 100%; 
+}
+/*
+.metadataLabel {
+  // Total time, Servings мб в text
+}
+*/
+
+/*
+.metadataValue {
+ // (10 minutes, 4 servings
+}
+*/
+.sourceLink {
+   color: var(--color-accent);
+   text-decoration: none;
+   &:hover {
+      text-decoration: underline;
+   }
+}
+
+
+.recipeContent {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 16px; 
+}
+
+.sectionTitle {
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.summaryText {
+  line-height: 1.6;
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.ingredientsList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.ingredientItem {
+  position: relative;
+  padding-left: 24px;
+  &::before {
+    content: '•';
+    position: absolute;
+    left: 8px;
+    color: var(--color-accent);
+    font-size: 18px;
+  }
+}
+
+.instructionsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.instructionItem {
+  padding-left: 36px;
+  position: relative;
+}
+
+.instructionStep {
+  line-height: 1.6;
+}
+
+.stepNumber {
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-right: 4px; 
+}
+
+.instructionsText {
+  line-height: 1.6;
+}
+
+.loaderContainer,
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding: 48px 0;
+  text-align: center;
+}
+
