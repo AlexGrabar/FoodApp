@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from './Text.module.scss';
+import s from './Text.module.scss';
 
 export type TextProps = {
   className?: string;
@@ -39,11 +39,11 @@ const Text: React.FC<TextProps> = ({
   return (
     <Tag
       className={classNames(
-        styles.text,
+        s.text,
         className,
-        view && styles[`view${view}`],
-        weight && styles[`weight${weight}`],
-        color && styles[`color${color}`],
+        view && s[`view${view}`],
+        weight && s[`weight${weight}`],
+        color && s[`color${color}`],
       )}
       style={style}
     >

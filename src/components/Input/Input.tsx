@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from './Input.module.scss';
+import s from './Input.module.scss';
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -20,17 +20,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     };
 
     const containerClassName = classNames(
-      styles.input,
+      s.input,
       className,
       {
-        [styles.disabled]: disabled
+        [s.disabled]: disabled
       }
     );
 
     const inputClassName = classNames(
-      styles.inputField,
+      s.inputField,
       {
-        [styles.withAfterSlot]: afterSlot
+        [s.withAfterSlot]: afterSlot
       }
     );
 
@@ -45,7 +45,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        {afterSlot && <div className={styles.inputAfterSlot}>{afterSlot}</div>}
+        {afterSlot && <div className={s.inputAfterSlot}>{afterSlot}</div>}
       </div>
     );
   }
