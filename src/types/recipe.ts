@@ -1,6 +1,5 @@
 import { MealType } from '@configs/api';
 
-// Интерфейс для карточки рецепта
 export interface RecipeCard {
   id: number;
   title: string;
@@ -8,7 +7,6 @@ export interface RecipeCard {
   imageType: string;
 }
 
-// Интерфейс для результатов поиска рецептов
 export interface RecipeSearchResult {
   results: RecipeCard[];
   offset: number;
@@ -16,7 +14,6 @@ export interface RecipeSearchResult {
   totalResults: number;
 }
 
-// Интерфейс для детальной информации о рецепте
 export interface RecipeDetails {
   id: number;
   title: string;
@@ -42,7 +39,6 @@ export interface RecipeDetails {
   analyzedInstructions: AnalyzedInstruction[];
 }
 
-// Интерфейс для ингредиента
 export interface Ingredient {
   id: number;
   aisle: string;
@@ -69,7 +65,6 @@ export interface Ingredient {
   };
 }
 
-// Интерфейс для проанализированных инструкций
 export interface AnalyzedInstruction {
   name: string;
   steps: {
@@ -94,7 +89,6 @@ export interface AnalyzedInstruction {
   }[];
 }
 
-// Интерфейс для параметров поиска рецептов
 export interface RecipeSearchParams {
   query?: string;
   type?: MealType | MealType[];

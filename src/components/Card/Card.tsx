@@ -1,7 +1,7 @@
-import React from 'react';
-import classNames from 'classnames';
+import React, { memo } from 'react';
+import cn from 'classnames';
 import Text from '@components/Text';
-import styles from './Card.module.scss';
+import s from './Card.module.scss';
 
 export type CardProps = {
   className?: string;
@@ -24,24 +24,24 @@ const Card: React.FC<CardProps> = ({
   onClick,
   actionSlot
 }) => {
-  const cardClasses = classNames(styles.card, className);
+  const cardClasses = cn(s.card, className);
 
   return (
-    <div className={cardClasses} onClick={onClick}>
-      <div className={styles.cardHeader}>
-        <img src={image} alt="" className={styles.cardImage} />
+    <div className={cn(s.card, className)} onClick={onClick}>
+      <div className={s.cardHeader}>
+        <img src={image} alt="" className={s.cardImage} />
       </div>
-      <div className={styles.cardBody}>
-        <div className={styles.cardContent}>
+      <div className={s.cardBody}>
+        <div className={s.cardContent}>
           {captionSlot && (
-            <div className={styles.cardCaption}>
+            <div className={s.cardCaption}>
               {captionSlot}
             </div>
           )}
           <Text 
             view="p-20" 
             weight="medium" 
-            className={styles.cardTitle} 
+            className={s.cardTitle} 
             maxLines={2}
           >
             {title}
@@ -49,7 +49,7 @@ const Card: React.FC<CardProps> = ({
           <Text 
             view="p-16" 
             weight="normal" 
-            className={styles.cardSubtitle} 
+            className={s.cardSubtitle} 
             maxLines={3}
           >
             {subtitle}
@@ -57,14 +57,14 @@ const Card: React.FC<CardProps> = ({
         </div>
         
         {(contentSlot || actionSlot) && (
-          <div className={styles.cardFooter}>
+          <div className={s.cardFooter}>
             {contentSlot && (
-              <div className={styles.cardContentSlot}>
+              <div className={s.cardContentSlot}>
                 {contentSlot}
               </div>
             )}
             {actionSlot && (
-              <div className={styles.cardActionSlot}>
+              <div className={s.cardActionSlot}>
                 {actionSlot}
               </div>
             )}

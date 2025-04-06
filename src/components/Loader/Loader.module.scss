@@ -1,25 +1,25 @@
-
-
 .loaderContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-}
 
-.loaderContainer_size_s {
-  width: 24px;
-  height: 24px;
-}
+  &_size {
+    &_s {
+      width: 24px;
+      height: 24px;
+    } 
 
-.loaderContainer_size_m {
-  width: 48px;
-  height: 48px;
-}
+    &_m {
+      width: 48px;
+      height: 48px;
+    } 
 
-.loaderContainer_size_l {
-  width: 60px;
-  height: 60px;
-}
+    &_l {
+      width: 60px;
+      height: 60px;
+    } 
+  } 
+} 
 
 .spinner {
   width: 100%;

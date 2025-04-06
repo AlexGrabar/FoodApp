@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
-import styles from './Loader.module.scss';
+import cn from 'classnames';
+import s from './Loader.module.scss';
 
 export type LoaderProps = {
   size?: 's' | 'm' | 'l';
@@ -9,15 +9,15 @@ export type LoaderProps = {
 
 const Loader: React.FC<LoaderProps> = ({ size = 'm', className, ...rest }) => {
   return (
-    <div 
-      className={classNames(
-        styles.loaderContainer,
-        styles[`loaderContainer_size_${size}`],
+    <div
+      className={cn(
+        s.loaderContainer,
+        s[`loaderContainer_size_${size}`],
         className
       )}
       {...rest}
     >
-      <div className={styles.spinner} />
+      <div className={s.spinner} />
     </div>
   );
 };

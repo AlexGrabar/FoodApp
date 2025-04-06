@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import Input from '@components/Input';
-import styles from './MultiDropdown.module.scss';
+import s from './MultiDropdown.module.scss';
 
 export type Option = {
   key: string;
@@ -86,32 +86,32 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
   return (
     <div 
       ref={dropdownRef}
-      className={classNames(styles.multiDropdown, className)}
+      className={classNames(s.multiDropdown, className)}
     >
-      <div onClick={handleInputClick} className={styles.multiDropdownInput}>
+      <div onClick={handleInputClick} className={s.multiDropdownInput}>
         <Input 
           value={inputValue}
           onChange={handleInputChange}
           placeholder={placeholder}
           disabled={disabled}
           afterSlot={
-            <div className={styles.multiDropdownArrow}>
-              <div className={styles.multiDropdownArrowIcon}></div>
+            <div className={s.multiDropdownArrow}>
+              <div className={s.multiDropdownArrowIcon}></div>
             </div>
           }
         />
       </div>
       
       {isOpen && !disabled && (
-        <div className={styles.multiDropdownOptions}>
+        <div className={s.multiDropdownOptions}>
           {filteredOptions.map(option => (
             <div
               key={option.key}
               className={classNames(
-                styles.multiDropdownOption,
+                s.multiDropdownOption,
                 {
-                  [styles.multiDropdownOptionSelected]: isSelected(option),
-                  [styles.multiDropdownOptionDisabled]: disabled
+                  [s.multiDropdownOptionSelected]: isSelected(option),
+                  [s.multiDropdownOptionDisabled]: disabled
                 }
               )}
               onClick={() => handleOptionSelect(option)}
@@ -120,7 +120,7 @@ const MultiDropdown: React.FC<MultiDropdownProps> = ({
             </div>
           ))}
           {filteredOptions.length === 0 && (
-            <div className={classNames(styles.multiDropdownOption, styles.multiDropdownOptionDisabled)}>
+            <div className={classNames(s.multiDropdownOption, s.multiDropdownOptionDisabled)}>
               Нет совпадений
             </div>
           )}
