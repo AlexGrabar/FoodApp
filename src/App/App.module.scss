@@ -1,0 +1,90 @@
+
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+  
+  @include mobile {
+    padding: 0 16px;
+  }
+}
+
+.header {
+  background-color: var(--bg-primary);
+  padding: 16px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logoIcon {
+  font-size: 24px;
+}
+
+.logoText {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.nav {
+  display: flex;
+}
+
+.navList {
+  display: flex;
+  gap: 24px;
+}
+
+.navItem {
+  list-style: none;
+}
+
+.navLink {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+  
+  &:hover {
+    color: var(--color-accent);
+  }
+}
+
+.main {
+  flex-grow: 1;
+  padding: 24px 0;
+}
+
+.footer {
+  background-color: var(--bg-primary);
+  padding: 24px 0;
+  margin-top: auto;
+}
+
+.footerText {
+  text-align: center;
+  color: var(--color-secondary);
+  font-size: 14px;
+}

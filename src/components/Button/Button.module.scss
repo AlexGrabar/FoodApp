@@ -1,0 +1,49 @@
+@use '../../styles/variables.scss' as *;
+
+.button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 14px 20px;
+  gap: 8px;
+  
+  background-color: var(--button-primary-bg);
+  border: none;
+  border-radius: 0;
+  min-height: 52px;
+  
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.buttonText {
+  color: var(--button-primary-text);
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--button-primary-bg-hover);
+}
+
+.button:active:not(:disabled) {
+  background-color: var(--button-primary-bg-active);
+}
+
+.button:disabled {
+  background-color: var(--button-primary-bg-disabled);
+  cursor: not-allowed;
+}
+
+.button.buttonLoading:not(.buttonDisabled):disabled {
+  background-color: var(--button-primary-bg);
+}
+
+.button [data-testid="loader"] {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}

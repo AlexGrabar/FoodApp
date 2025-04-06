@@ -1,0 +1,74 @@
+
+.input {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 14px 12px;
+  gap: 8px;
+  width: 100%;
+  height: 52px;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: 0px;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus-within {
+  border: 1px solid var(--input-border-focus);
+}
+
+.input.disabled {
+  background: var(--input-bg-disabled);
+  border: 1px solid var(--input-border-disabled);
+}
+
+.inputField {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  width: 100%;
+  height: 20px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--input-text);
+  flex: 1;
+  order: 0;
+  flex-grow: 1;
+  caret-color: var(--input-text);
+}
+
+.inputField.withAfterSlot {
+  width: calc(100% - 32px);
+}
+
+.inputField::placeholder {
+  color: var(--input-placeholder);
+}
+
+.input:focus-within .inputField {
+  color: var(--input-text-focus);
+}
+
+.inputField:disabled {
+  color: var(--input-text-disabled);
+  cursor: not-allowed;
+}
+
+.inputAfterSlot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}

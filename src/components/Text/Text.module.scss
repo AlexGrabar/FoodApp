@@ -1,0 +1,56 @@
+
+
+.text {
+    color: inherit;
+}
+
+.viewtitle {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.viewbutton {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.viewp-20 {
+    font-size: 20px;
+}
+
+.viewp-18 {
+    font-size: 18px;
+}
+
+.viewp-16 {
+    font-size: 16px;
+}
+
+.viewp-14 {
+    font-size: 14px;
+}
+
+.weightnormal {
+    font-weight: normal;
+}
+
+.weightmedium {
+    font-weight: 500;
+}
+
+.weightbold {
+    font-weight: bold;
+}
+
+.colorprimary {
+    color: var(--color-primary);
+}
+
+.colorsecondary {
+    color: var(--color-secondary);
+}
+
+.coloraccent {
+    color: var(--color-accent);
+}
