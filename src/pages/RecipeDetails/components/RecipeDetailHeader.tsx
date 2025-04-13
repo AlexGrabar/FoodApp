@@ -10,7 +10,7 @@ type RecipeDetailHeaderProps = {
 
 export const RecipeDetailHeader: React.FC<RecipeDetailHeaderProps> = observer(({ recipe }) => {
   return (
-    <> 
+    <>
         <Text tag="h1" view="title" className={s.recipeTitle}>
             {recipe.title}
         </Text>

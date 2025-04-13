@@ -1,0 +1,32 @@
+.favoritesPage {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 0;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+  
+  .gridItem {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .emptyMessage {
+    text-align: center;
+    color: var(--color-secondary);
+    padding: 48px 0;
+  }
+
+  .backButton {
+    align-self: flex-start;
+  }

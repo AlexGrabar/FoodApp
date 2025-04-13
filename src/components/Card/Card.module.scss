@@ -97,3 +97,46 @@
   margin-top: auto;
   flex-shrink: 0;
 }
+
+.cardActionSlot {
+  margin-left: auto;
+}
+
+.favoriteButton {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 16px;
+  gap: 8px;
+  background-color: var(--button-primary-bg);
+  border: none;
+  border-radius: 0px;
+  min-height: 40px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+  color: var(--button-primary-text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1;
+
+  &:hover:not(:disabled) {
+    background-color: var(--button-primary-bg-hover);
+  }
+
+  &:active:not(:disabled) {
+    background-color: var(--button-primary-bg-active);
+  }
+
+  &:disabled {
+    background-color: var(--button-primary-bg-disabled);
+    cursor: not-allowed;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}

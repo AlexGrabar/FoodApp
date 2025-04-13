@@ -1,95 +1,56 @@
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { useSearchParams } from 'react-router-dom';
 import { useStores } from '@/store/StoreProvider';
+import { RecipeListStore, RecipeListExternalParams } from '@/store/RecipeListStore';
 import Text from '@components/Text';
 import Loader from '@components/Loader';
 import { RecipeListHeader } from './components/RecipeListHeader';
-import { RecipeListFilters } from './components/RecipeListFilters'; 
-import { RecipeGrid } from './components/RecipeGrid'; 
+import { RecipeListFilters } from './components/RecipeListFilters';
+import { RecipeGrid } from './components/RecipeGrid';
+import { useRecipeListSync } from '@/hooks/useRecipeListSync';
 import s from './RecipeList.module.scss';
 
-
 const RecipeList: React.FC = observer(() => {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { recipeStore } = useStores();
-  const observer = useRef<IntersectionObserver>();
-  const lastRecipeElementRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (recipeStore.isLoadingList) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && recipeStore.hasMore) {
-          recipeStore.loadMoreRecipes();
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [recipeStore] 
-  );
-   useEffect(() => {
-     const query = searchParams.get('query');
-     const typeString = searchParams.get('type');
-     if (recipeStore.recipes.length === 0 || query !== recipeStore.appliedSearchQuery || typeString !== recipeStore.appliedTypes.join(',')) {
-         recipeStore.initializeFromUrlParams(query, typeString);
-     }
-   }, []);
+    const { queryStore } = useStores();
+    const [recipeListStore] = useState(() => new RecipeListStore());
+    useRecipeListSync({ queryStore, recipeListStore });
+    const observerRef = React.useRef<IntersectionObserver | null>(null);
+    const lastRecipeElementRef = useCallback((node: HTMLDivElement | null) => {
+        if (recipeListStore.isLoading) return;
+        if (observerRef.current) observerRef.current.disconnect();
+        observerRef.current = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && recipeListStore.hasMore) {
+                recipeListStore.loadMoreRecipes();
+            }
+        });
+        if (node) observerRef.current.observe(node);
+    }, [recipeListStore]);
 
-   useEffect(() => {
-     const params = new URLSearchParams();
-     if (recipeStore.appliedSearchQuery) {
-       params.set('query', recipeStore.appliedSearchQuery);
-     }
-     if (recipeStore.appliedTypes.length > 0) {
-       params.set('type', recipeStore.appliedTypes.join(','));
-     }
-     if (searchParams.toString() !== params.toString()) {
-         setSearchParams(params, { replace: true });
-     }
-   }, [recipeStore.appliedSearchQuery, recipeStore.appliedTypes, setSearchParams, searchParams]);
+    const handleApplyFilters = () => {
+        const params: RecipeListExternalParams = {
+            query: queryStore.searchQuery || undefined,
+            type: queryStore.selectedMealTypes.length > 0 ? queryStore.selectedMealTypes : undefined,
+        };
+        recipeListStore.loadInitialRecipes(params);
+    };
 
-
-  return (
-    <div className={s.recipeList}>
-      <RecipeListHeader />
-      <RecipeListFilters />
-      
-      {recipeStore.recipes.length > 0 && (
-         <RecipeGrid recipes={recipeStore.recipes} lastItemRef={lastRecipeElementRef} />
-      )}
-
-      {recipeStore.isLoadingList && (
-        <div className={s.loaderContainer}>
-          <Loader size="l" />
+    return (
+        <div className={s.recipeList}>
+            <RecipeListHeader />
+            <RecipeListFilters
+                onApplyFilters={handleApplyFilters}
+                isLoading={recipeListStore.isLoading}
+            />
+            {recipeListStore.recipes.length > 0 && (
+                 <RecipeGrid recipes={recipeListStore.recipes} lastItemRef={lastRecipeElementRef} />
+             )}
+             {recipeListStore.isInitialLoading && ( <div className={s.loaderContainer}><Loader size="l" /></div> )}
+             {recipeListStore.isLoading && !recipeListStore.isInitialLoading && recipeListStore.recipes.length > 0 && ( <div className={s.loaderContainer} style={{ padding: '24px 0' }}><Loader size="m" /></div> )}
+             {recipeListStore.error && recipeListStore.isListEmptyAndNotLoading && ( <div className={s.error}><Text color="secondary">{recipeListStore.error}</Text></div> )}
+             {recipeListStore.isEmpty && !recipeListStore.error && !recipeListStore.isLoading && ( <div className={s.noResults}><Text view="p-18" weight="medium">No recipes found</Text><Text view="p-16" color="secondary">Try adjusting your search or filters...</Text></div> )}
+             {!recipeListStore.hasMore && !recipeListStore.isLoading && recipeListStore.recipes.length > 0 && ( <div className={s.noResults} style={{ padding: '24px 0' }}><Text view="p-16" color="secondary">You&aposve reached the end!</Text></div> )}
         </div>
-      )}
-
-      {recipeStore.errorList && !recipeStore.isLoadingList && recipeStore.recipes.length === 0 && (
-        <div className={s.error}>
-          <Text color="secondary">{recipeStore.errorList}</Text>
-        </div>
-      )}
-
-      {!recipeStore.isLoadingList && !recipeStore.errorList && recipeStore.recipes.length === 0 && (
-        <div className={s.noResults}>
-          <Text view="p-18" weight="medium">
-            No recipes found
-          </Text>
-          <Text view="p-16" color="secondary">
-            Try adjusting your search or filters to find what you're looking for
-          </Text>
-        </div>
-      )}
-
-      {!recipeStore.hasMore && !recipeStore.isLoadingList && recipeStore.recipes.length > 0 && (
-        <div className={s.noResults} style={{ padding: '24px 0' }}>
-          <Text view="p-16" color="secondary">
-            No more recipes to load.
-          </Text>
-        </div>
-      )}
-    </div>
-  );
+    );
 });
 
 export default RecipeList;

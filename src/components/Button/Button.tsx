@@ -16,7 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   ...rest
 }) => {
   const buttonDisabled = disabled || loading;
-  
+
   return (
     <button
       className={classNames(

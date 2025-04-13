@@ -13,25 +13,31 @@ const mealTypeOptions: Option[] = MEAL_TYPES.map((type) => ({
     value: type.charAt(0).toUpperCase() + type.slice(1),
 }));
 
-export const RecipeListFilters: React.FC = observer(() => {
-    const { recipeStore } = useStores();
+type RecipeListFiltersProps = {
+    onApplyFilters: () => void;
+    isLoading?: boolean;
+};
 
+export const RecipeListFilters: React.FC<RecipeListFiltersProps> = observer(({ onApplyFilters, isLoading }) => {
+    const { queryStore } = useStores();
     const handleSearchChange = (value: string) => {
-        recipeStore.setSearchQuery(value);
+        queryStore.setSearchQuery(value);
     };
 
     const handleTypeChange = (newSelectedTypes: Option[]) => {
-        recipeStore.setSelectedTypes(newSelectedTypes);
+        queryStore.setSelectedTypes(newSelectedTypes);
     };
 
-    const handleApplyFilters = () => {
-        recipeStore.applyFiltersAndLoad();
+    const handleApplyClick = () => {
+        onApplyFilters();
     };
 
      const getTypeTitle = (types: Option[]) => {
         return types.length === 0
         ? 'Select meal types'
-        : types.map((t) => t.value).join(', ');
+        : types.length > 3
+            ? `${types.length} types selected`
+            : types.map((t) => t.value).join(', ');
     };
 
     return (
@@ -39,27 +45,24 @@ export const RecipeListFilters: React.FC = observer(() => {
             <div className={s.searchBar}>
             <Input
                 placeholder="Search recipes..."
-                value={recipeStore.currentSearchQuery}
+                value={queryStore.searchQuery}
                 onChange={handleSearchChange}
                 className={s.searchInput}
-                onKeyDown={(e) => e.key === 'Enter' && handleApplyFilters()}
-                disabled={recipeStore.isLoadingList}
+                onKeyDown={(e) => e.key === 'Enter' && handleApplyClick()}
+                disabled={isLoading}
             />
-            <Button onClick={handleApplyFilters} className={s.searchButton} disabled={recipeStore.isLoadingList}>
-                Search
-            </Button>
             </div>
 
             <div className={s.typeFilter}>
             <MultiDropdown
                 options={mealTypeOptions}
-                value={recipeStore.currentSelectedTypes}
+                value={queryStore.selectedTypes}
                 onChange={handleTypeChange}
                 getTitle={getTypeTitle}
                 className={s.typeDropdown}
-                disabled={recipeStore.isLoadingList}
+                disabled={isLoading}
             />
-            <Button onClick={handleApplyFilters} className={s.filterButton} disabled={recipeStore.isLoadingList}>
+            <Button onClick={handleApplyClick} className={s.filterButton} disabled={isLoading}>
                 Apply Filters
             </Button>
             </div>

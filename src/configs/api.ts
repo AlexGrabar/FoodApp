@@ -1,12 +1,12 @@
 export const API = {
     BASE_URL: 'https://api.spoonacular.com',
-    API_KEY: 'a0a633ad4cf648b0b40e684c819d4050',
+    API_KEY: '6260b23b18884ceba3324bf79a5d6724',
     ENDPOINTS: {
       RECIPES: '/recipes/complexSearch',
       RECIPE_DETAILS: (id: number) => `/recipes/${id}/information`,
     },
   };
-  
+
   export const MEAL_TYPES = [
     'main course',
     'side dish',
@@ -23,5 +23,5 @@ export const API = {
     'snack',
     'drink'
   ] as const;
-  
+
   export type MealType = typeof MEAL_TYPES[number];
