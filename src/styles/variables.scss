@@ -1,14 +1,11 @@
-
 :root {
 
   --color-primary: #000000;
   --color-secondary: #AFADB5;
   --color-accent: #518581;
 
-
   --bg-primary: #FFFFFF;
   --bg-secondary: rgba(255, 192, 118, 0.23);
-  
 
   --space-xxs: 8px;
   --space-xs: 12px;
@@ -18,14 +15,12 @@
   --space-xl: 24px;
   --space-xxl: 32px;
 
- 
   --button-primary-bg: #518581;
   --button-primary-bg-hover: #86AAA7;
   --button-primary-bg-active: #487773;
   --button-primary-bg-disabled: #D9D9D9;
   --button-primary-text: #FFFFFF;
 
- 
   --input-bg: #FFFFFF;
   --input-bg-focus: #FFFFFF;
   --input-bg-disabled: #FFFFFF;
@@ -37,13 +32,11 @@
   --input-text-disabled: rgba(0, 0, 0, 0.2);
   --input-placeholder: #AFADB5;
 
-
   --dropdown-options-bg: #FFFFFF;
   --dropdown-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   --dropdown-option-text: #000000;
   --dropdown-option-text-selected: #518581;
   --dropdown-option-text-disabled: #AFADB5;
-
 
   --checkbox-bg: #FFFFFF;
   --checkbox-bg-hover: #FFFFFF;
@@ -54,16 +47,61 @@
   --checkbox-check-hover: #518581;
   --checkbox-check-disabled: rgba(0, 0, 0, 0.2);
 
-
   --card-bg: #FFFFFF;
   --card-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
   --card-border-radius: 0px;
   --card-color-placeholder-bg: #D9D9D9;
   
-
   --loader-color: #518581;
 }
 
+
+body.dark {
+  --color-primary: #E0E0E0;
+  --color-secondary: #A0A0A0;
+  --color-accent: #64babb;
+
+  --bg-primary: #1E1E1E;
+  --bg-secondary: #2c2c2c;
+
+  --button-primary-bg: #518581;
+  --button-primary-bg-hover: #64babb;
+  --button-primary-bg-active: #487773;
+  --button-primary-bg-disabled: #444444;
+  --button-primary-text: #E0E0E0;
+
+  --input-bg: #333333;
+  --input-bg-focus: #404040;
+  --input-bg-disabled: #2a2a2a;
+  --input-border: #555555;
+  --input-border-focus: #64babb;
+  --input-border-disabled: #444444;
+  --input-text: #E0E0E0;
+  --input-text-focus: #FFFFFF;
+  --input-text-disabled: #777777;
+  --input-placeholder: #888888;
+
+  --dropdown-options-bg: #333333;
+  --dropdown-shadow: 0px 4px 15px rgba(0, 0, 0, 0.6);
+  --dropdown-option-text: #E0E0E0;
+  --dropdown-option-text-selected: #64babb;
+  --dropdown-option-text-disabled: #777777;
+
+  --checkbox-bg: #333333;
+  --checkbox-bg-hover: #404040;
+  --checkbox-bg-disabled: #2a2a2a;
+  --checkbox-border: #888888;
+  --checkbox-border-hover: #64babb;
+  --checkbox-check: #64babb;
+  --checkbox-check-hover: #86ded8;
+  --checkbox-check-disabled: #555555;
+
+  --card-bg: #2a2a2a;
+  --card-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+  --card-color-placeholder-bg: #444444;
+
+  --loader-color: #64babb;
+}
 
 @mixin mobile {
   @media (max-width: 767px) {

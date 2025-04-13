@@ -1,5 +1,5 @@
-import React, { createContext, useContext, ReactNode } from 'react';
-import rootStore, { RootStore } from './RootStore'; 
+import { createContext, useContext, ReactNode } from 'react';
+import rootStore, { RootStore } from './RootStore';
 
 const StoreContext = createContext<RootStore | undefined>(undefined);
 

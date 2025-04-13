@@ -24,7 +24,6 @@ module.exports = {
       '@typescript-eslint', 
       'react', 
       'react-hooks', 
-      'react-refresh', 
     ],
     settings: {
       react: {
@@ -36,19 +35,13 @@ module.exports = {
       'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
       'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
       'no-unused-vars': 'off',
-  
       '@typescript-eslint/no-unused-vars': ['warn', { 'argsIgnorePattern': '^_' }],
       '@typescript-eslint/no-explicit-any': 'warn',
-  
       'react/prop-types': 'off',
-      'react-refresh/only-export-components': [ 
-          'warn',
-          { allowConstantExport: true },
-      ],
-  
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
-
+      'no-trailing-spaces': 'warn',
+      'no-multiple-empty-lines': ['warn', { 'max': 1, 'maxEOF': 0, 'maxBOF': 0 }],
     },
     ignorePatterns: ['dist', 'node_modules', '*.cjs', '*.js'],
   };
