@@ -3,6 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = (env, argv) => {
     const isProduction = argv.mode === 'production';
@@ -93,6 +94,12 @@ module.exports = (env, argv) => {
             ],
         },
         plugins: [
+            new Dotenv({
+                safe: false,
+                systemvars: true,
+                silent: false,
+                defaults: false,
+            }),
             new HtmlWebpackPlugin({
                 template: './index.html',
                 favicon: './public/favicon.ico'

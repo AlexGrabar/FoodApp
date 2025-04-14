@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useParams, useNavigate } from 'react-router-dom';
 import { RecipeDetailsStore } from '@/store/RecipeDetailsStore';
@@ -8,11 +8,12 @@ import Loader from '@components/Loader';
 import { RecipeDetailHeader } from './components/RecipeDetailHeader';
 import { RecipeDetailContent } from './components/RecipeDetailContent';
 import s from './RecipeDetails.module.scss';
+import { useLocalStore } from '@/hooks/useLocalStore';
 
 const RecipeDetails: React.FC = observer(() => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [recipeDetailsStore] = useState(() => new RecipeDetailsStore());
+  const recipeDetailsStore = useLocalStore(() => new RecipeDetailsStore());
 
   useEffect(() => {
     let recipeId: number | undefined = undefined;

@@ -44,7 +44,7 @@ const FavoritesPage: React.FC = observer(() => {
                 </div>
             ) : (
                 <Text view="p-18" className={s.emptyMessage}>
-                    I hope you haven&apost saved any favorite recipes yet.
+                    I hope you haven&apos;t saved any favorite recipes yet.
                 </Text>
             )}
         </div>

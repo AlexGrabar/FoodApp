@@ -1,6 +1,5 @@
 export const API = {
     BASE_URL: 'https://api.spoonacular.com',
-    API_KEY: '6260b23b18884ceba3324bf79a5d6724',
     ENDPOINTS: {
       RECIPES: '/recipes/complexSearch',
       RECIPE_DETAILS: (id: number) => `/recipes/${id}/information`,
