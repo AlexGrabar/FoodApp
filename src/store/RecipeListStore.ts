@@ -1,38 +1,46 @@
-import { makeAutoObservable } from 'mobx';
-import { getRecipes } from '@api/recipes';
+import { makeAutoObservable, observable } from 'mobx';
 import type { RecipeCard, RecipeSearchParams } from '@typings/recipe';
 import { CollectionStore } from './CollectionStore';
-
-const RECIPES_PER_PAGE = 12;
+import rootStore from './RootStore';
 
 export type RecipeListExternalParams = Omit<RecipeSearchParams, 'offset' | 'number'>;
 
 export class RecipeListStore {
-  private readonly _collection: CollectionStore<RecipeCard, RecipeListExternalParams>;
+    readonly collection: CollectionStore<RecipeCard, RecipeListExternalParams>;
+    constructor() {
+      this.collection = new CollectionStore(
+          rootStore.apiStore.getRecipes.bind(rootStore.apiStore),
+          12
+      );
 
-  constructor() {
-    this._collection = new CollectionStore(getRecipes, RECIPES_PER_PAGE);
-    makeAutoObservable(this, {}, { autoBind: true });
+      makeAutoObservable(this, {
+          collection: observable,
+      }, { autoBind: true });
   }
 
-  get recipes(): RecipeCard[] { return this._collection.list; }
-  get isLoading(): boolean { return this._collection.isLoading; }
-  get isInitialLoading(): boolean { return this._collection.isInitialLoading; }
-  get error(): string | null { return this._collection.error; }
-  get hasMore(): boolean { return this._collection.hasMore; }
-  get totalResults(): number { return this._collection.totalResults; }
-  get isEmpty(): boolean { return this._collection.isEmpty; }
-  get isListEmptyAndNotLoading(): boolean { return this._collection.isListEmptyAndNotLoading; }
+    get recipes(): RecipeCard[] { return this.collection.list; }
+    get isLoading(): boolean { return this.collection.isLoading; }
+    get isInitialLoading(): boolean { return this.collection.isInitialLoading; }
+    get error(): string | null { return this.collection.error; }
+    get hasMore(): boolean { return this.collection.hasMore; }
+    get totalResults(): number { return this.collection.totalResults; }
+    get isEmpty(): boolean { return this.collection.isEmpty; }
+    get isListEmptyAndNotLoading(): boolean { return this.collection.isListEmptyAndNotLoading; }
 
-  async loadInitialRecipes(params: RecipeListExternalParams): Promise<void> {
-    await this._collection.loadInitial(params);
-  }
+    async loadInitialRecipes(params: RecipeListExternalParams): Promise<void> {
+        console.log('RecipeListStore: loadInitialRecipes called with:', params);
+        await this.collection.loadInitial(params);
+    }
 
-  async loadMoreRecipes(): Promise<void> {
-    await this._collection.loadMore();
-  }
+    async loadMoreRecipes(): Promise<void> {
+        await this.collection.loadMore();
+    }
 
-  reset(): void {
-    this._collection.reset();
-  }
+    reset(): void {
+        this.collection.reset();
+    }
+
+    destroy(): void {
+        this.collection.destroy();
+    }
 }
