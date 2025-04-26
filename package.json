@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://AlexGrabar.github.io/FoodApp",
+  "homepage": "https://alexgrabar.github.io/FoodApp",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --mode development",
     "build": "cross-env NODE_ENV=production webpack --mode production",
