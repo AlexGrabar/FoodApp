@@ -1,0 +1,77 @@
+.loginPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 48px 0;
+  }
+  
+  .title {
+    margin-bottom: 32px;
+  }
+  
+  .form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .label {
+    font-weight: 500;
+    color: var(--color-primary);
+  }
+  
+  .inputField {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    width: 100%;
+    height: 20px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: var(--input-text);
+    flex: 1;
+    order: 0;
+    flex-grow: 1;
+    caret-color: var(--input-text);
+  }
+  
+  .submitButton {
+    margin-top: 12px;
+  }
+  
+  .errorMessage {
+    color: #e53e3e;
+    background-color: rgba(229, 62, 62, 0.1);
+    border: 1px solid rgba(229, 62, 62, 0.2);
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 16px;
+  }
+  
+  .registerLink {
+    margin-top: 24px;
+    text-align: center;
+    color: var(--color-secondary);
+  
+    a {
+      color: var(--color-accent);
+      text-decoration: underline;
+      margin-left: 4px;
+    }
+  }

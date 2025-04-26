@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosError } from 'axios';
 import { API } from '@configs/api';
-import { RecipeDetails, RecipeSearchParams, RecipeSearchResult } from '@typings/recipe';
+import { RecipeDetails, RecipeSearchParams, RecipeSearchResult, RecipeCard } from '@typings/recipe';
 
 interface ApiErrorResponse {
     success: false;
@@ -9,23 +9,22 @@ interface ApiErrorResponse {
     message: string;
 }
 
-const apiKey = process.env.REACT_APP_SPOONACULAR_API_KEY;//бест практикс гуд || process.env.SPOONACULAR_API_KEY
-console.log('[ApiStore] Initial API Key from process.env:', apiKey);
-if (!apiKey) {
-    console.warn('Warning: Seriously? Key in env');
+interface RandomRecipeResponse {
+    recipes: RecipeDetails[];
 }
+
+const apiKey = process.env.REACT_APP_SPOONACULAR_API_KEY;
 
 export class ApiStore {
     private readonly apiClient: AxiosInstance;
 
     constructor() {
-        console.log('[ApiStore Constructor] Using API Key:', apiKey);
         this.apiClient = axios.create({
             baseURL: API.BASE_URL,
             params: {
                 apiKey: apiKey,
             },
-            timeout: 10000,
+            timeout: 15000,
         });
     }
 
@@ -40,6 +39,11 @@ export class ApiStore {
                 typeof (axiosError.response.data as any).message === 'string') {
                 serverMessage = (axiosError.response.data as any).message;
             }
+
+            if (axiosError.response?.status === 402) {
+                 serverMessage = 'API request limit reached for today. Please try again tomorrow.';
+            }
+
 
             return {
                 success: false,
@@ -62,7 +66,11 @@ export class ApiStore {
             const apiParams = {
                 ...params,
                 type: Array.isArray(params.type) ? params.type.join(',') : params.type,
+                cuisine: Array.isArray(params.cuisine) ? params.cuisine.join(',') : params.cuisine,
+                intolerances: Array.isArray(params.intolerances) ? params.intolerances.join(',') : params.intolerances,
             };
+            Object.keys(apiParams).forEach(key => (apiParams as any)[key] == null && delete (apiParams as any)[key]);
+
             const response = await this.apiClient.get<RecipeSearchResult>(API.ENDPOINTS.RECIPES, {
                 params: apiParams,
             });
@@ -80,6 +88,23 @@ export class ApiStore {
         } catch (error) {
             const errorResponse = this._handleError(error);
             throw new Error(errorResponse.message);
+        }
+    }
+
+    async getRandomRecipes(tags?: string[]): Promise<RecipeDetails[]> {
+        try {
+            const params: { number: number; tags?: string } = { number: 1 };
+            if (tags && tags.length > 0) {
+                params.tags = tags.join(',');
+            }
+            const response = await this.apiClient.get<RandomRecipeResponse>(API.ENDPOINTS.RANDOM_RECIPES, { params });
+            if (!response.data || !response.data.recipes) {
+                 throw new Error('Invalid response format for random recipes.');
+            }
+            return response.data.recipes;
+        } catch (error) {
+             const errorResponse = this._handleError(error);
+             throw new Error(errorResponse.message);
         }
     }
 }

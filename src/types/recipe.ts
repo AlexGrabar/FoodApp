@@ -89,10 +89,36 @@ export interface AnalyzedInstruction {
   }[];
 }
 
+
+export type RecipeSortOption =
+  | 'meta-score'
+  | 'popularity'
+  | 'healthiness'
+  | 'price'
+  | 'time'
+  | 'random'
+  | 'max-used-ingredients'
+  | 'min-missing-ingredients'
+  | 'calories'
+  | 'carbohydrates'
+  | 'protein'
+  | 'fat';
+
 export interface RecipeSearchParams {
   query?: string;
   type?: MealType | MealType[];
+  cuisine?: string | string[];
+  diet?: string;
+  intolerances?: string | string[];
+  maxReadyTime?: number;
+  sort?: RecipeSortOption;
+  sortDirection?: 'asc' | 'desc';
   number?: number;
   offset?: number;
   addRecipeNutrition?: boolean;
 }
+
+export type SortOptionType = {
+  key: RecipeSortOption;
+  value: string;
+};

@@ -12,7 +12,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
 export const useStores = (): RootStore => {
   const store = useContext(StoreContext);
   if (!store) {
-    throw new Error('sad');
+    throw new Error('useStores must be used within a StoreProvider.');
   }
   return store;
 };
