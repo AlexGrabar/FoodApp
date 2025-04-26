@@ -19,7 +19,7 @@ module.exports = (env, argv) => {
             chunkFilename: isProduction ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js',
             assetModuleFilename: 'static/assets/[name].[hash][ext]',
             clean: true,
-            publicPath: '/',
+            publicPath: isProduction ? '/FoodApp/' : '/',
         },
         resolve: {
             extensions: ['.tsx', '.ts', '.jsx', '.js', '.json'],
