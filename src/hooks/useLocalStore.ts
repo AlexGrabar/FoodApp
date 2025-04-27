@@ -15,10 +15,9 @@ export const useLocalStore = <T extends IDestroyable>(creator: () => T): T => {
   React.useEffect(() => {
     return () => {
       storeRef.current?.destroy?.();
-      //storeRef.current = null; проверить для GC
        console.log('Local store destroyed');
     };
   }, []);
 
-  return storeRef.current; // current!     T | null
+  return storeRef.current;
 };

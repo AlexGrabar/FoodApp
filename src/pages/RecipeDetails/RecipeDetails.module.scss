@@ -63,13 +63,13 @@
 
 .metadataContainer {
   display: flex;
-  flex-wrap: wrap; 
-  gap: 20px 28px; 
-  flex-grow: 1; 
-  padding-top: 8px; 
+  flex-wrap: wrap;
+  gap: 20px 28px;
+  flex-grow: 1;
+  padding-top: 8px;
 
    @include mobile {
-     padding-top: 0; 
+     padding-top: 0;
    }
 }
 
@@ -104,6 +104,9 @@
   margin-bottom: 16px;
   padding-bottom: 8px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  body.dark & {
+     border-bottom-color: rgba(255, 255, 255, 0.15);
+  }
 }
 
 .summaryText {
@@ -123,13 +126,15 @@
   gap: 12px;
 }
 
-.ingredientItem {
+ingredientItem {
   position: relative;
   padding-left: 24px;
+
   &::before {
     content: '•';
     position: absolute;
     left: 8px;
+    top: 0.2em;
     color: var(--color-accent);
     font-size: 18px;
   }
@@ -171,3 +176,47 @@
   text-align: center;
 }
 
+.servingsControlContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.servingsInput {
+ width: 70px;
+ height: 40px;
+ padding: 8px 10px;
+}
+
+.metadataItemWide {
+  flex-basis: 100%;
+}
+
+.ingredientsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+
+.servingsInfo {
+  margin-bottom: 16px;
+  white-space: nowrap;
+  order: 2;
+   @include mobile {
+       order: 1;
+   }
+}
+
+.addAllButton {
+  padding: 6px 12px;
+  min-height: auto;
+  font-size: 14px;
+  order: 1;
+  @include mobile {
+      width: 100%;
+      order: 2;
+  }
+}

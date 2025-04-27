@@ -21,7 +21,7 @@ declare module '*.svg' {
 declare global {
   namespace NodeJS {
     interface ProcessEnv {
-      REACT_APP_SPOONACULAR_API_KEY?: string; // SPOONACULAR_API_KEY?: string;
+      REACT_APP_SPOONACULAR_API_KEY?: string;
       NODE_ENV: 'development' | 'production';
     }
   }

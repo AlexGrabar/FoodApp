@@ -64,9 +64,16 @@
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s ease;
-  
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 0;
+  border-bottom: 2px solid transparent;
   &:hover {
     color: var(--color-accent);
+  }
+  &.navLinkActive {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
   }
 }
 
@@ -137,4 +144,23 @@
   span[aria-hidden="true"] {
     font-size: 18px;
   }
+}
+
+.logoutButton {
+  padding: 6px 12px;
+  min-height: auto;
+  font-size: 14px;
+  background-color: transparent;
+  color: var(--color-secondary);
+  border: 1px solid var(--color-secondary);
+  border-radius: 4px;
+
+  &:hover:not(:disabled) {
+      background-color: rgba(128, 128, 128, 0.1);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+  }
+   body.dark &:hover:not(:disabled) {
+       background-color: rgba(255, 255, 255, 0.1);
+   }
 }

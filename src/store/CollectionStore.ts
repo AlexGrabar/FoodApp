@@ -86,10 +86,8 @@ export class CollectionStore<Item extends Identifiable, ExternalParams extends o
   private async _fetch(requestOffset: number): Promise<void> {
        const currentParams = this._lastUsedExternalParams;
        if (!currentParams) {
-           runInAction(() => {
                this._isLoading = false;
                this._isInitialLoading = false;
-           });
            console.warn("CollectionStore: Attempted to fetch without external parameters.");
            return;
        }

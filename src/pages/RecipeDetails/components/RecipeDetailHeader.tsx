@@ -6,9 +6,10 @@ import s from '../RecipeDetails.module.scss';
 
 type RecipeDetailHeaderProps = {
   recipe: RecipeDetails;
+  children?: React.ReactNode;
 };
 
-export const RecipeDetailHeader: React.FC<RecipeDetailHeaderProps> = observer(({ recipe }) => {
+export const RecipeDetailHeader: React.FC<RecipeDetailHeaderProps> = observer(({ recipe, children }) => {
   return (
     <>
         <Text tag="h1" view="title" className={s.recipeTitle}>
@@ -37,12 +38,13 @@ export const RecipeDetailHeader: React.FC<RecipeDetailHeaderProps> = observer(({
                 </div>
                  <div className={s.metadataItem}>
                     <Text view="p-14" color="secondary" className={s.metadataLabel}>
-                    Servings
+                    Original Servings
                     </Text>
                     <Text view="p-16" weight="medium" className={s.metadataValue}>
-                    {recipe.servings} servings
+                    {recipe.servings} {recipe.servings === 1 ? 'serving' : 'servings'}
                     </Text>
                 </div>
+                {children}
                 <div className={s.metadataItem}>
                     <Text view="p-14" color="secondary" className={s.metadataLabel}>
                     Price/serving
@@ -69,14 +71,14 @@ export const RecipeDetailHeader: React.FC<RecipeDetailHeaderProps> = observer(({
                 </div>
                 {recipe.sourceName && (
                     <div className={s.metadataItemWide}>
-                    <Text view="p-14" color="secondary" className={s.metadataLabel}>
-                        Source
-                    </Text>
-                    <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer" className={s.sourceLink}>
-                        <Text view="p-16" weight="medium">
-                            {recipe.sourceName}
-                        </Text>
-                    </a>
+                     <Text view="p-14" color="secondary" className={s.metadataLabel}>
+                         Source
+                     </Text>
+                     <a href={recipe.sourceUrl} target="_blank" rel="noopener noreferrer" className={s.sourceLink}>
+                         <Text view="p-16" weight="medium">
+                             {recipe.sourceName}
+                         </Text>
+                     </a>
                     </div>
                 )}
             </div>
