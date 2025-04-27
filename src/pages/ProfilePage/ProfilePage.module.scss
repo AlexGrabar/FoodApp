@@ -1,0 +1,157 @@
+.profilePage {
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .title {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  
+  .infoSection {
+    background-color: var(--bg-primary);
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    body.dark & {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    }
+  }
+  
+  .infoItem {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    align-items: baseline;
+  
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  
+  .label {
+    font-weight: 500;
+    color: var(--color-secondary);
+    width: 100px;
+    flex-shrink: 0;
+  }
+  
+  .value {
+    color: var(--color-primary);
+    word-break: break-all;
+  }
+  
+  .logoutButton {
+     align-self: center;
+     margin-top: 16px;
+  }
+
+  .passwordWrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-grow: 1;
+}
+
+.passwordValue {
+    font-family: monospace;
+    color: var(--color-primary);
+    min-width: 80px;
+}
+
+.toggleVisibilityButton {
+    background: none;
+    border: none;
+    padding: 0 4px;
+    cursor: pointer;
+    color: var(--color-secondary);
+    line-height: 1;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+        color: var(--color-primary);
+    }
+}
+
+.editButton {
+    margin-left: auto;
+    padding: 4px 10px;
+    min-height: auto;
+    font-size: 13px;
+}
+
+.editForm {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    body.dark & {
+       border-top-color: rgba(255, 255, 255, 0.15);
+    }
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.formTitle {
+    margin-bottom: 8px;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    .label {
+      width: auto;
+      color: var(--color-primary);
+    }
+}
+
+.errorMessage {
+    color: #e53e3e;
+    background-color: rgba(229, 62, 62, 0.1);
+    border: 1px solid rgba(229, 62, 62, 0.2);
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.formButtons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+.cancelButton {
+    background-color: transparent;
+    border: 1px solid var(--color-secondary);
+    span[class*="buttonText"] {
+       color: var(--color-secondary) !important;
+    }
+  
+    &:hover:not(:disabled) {
+      background-color: rgba(128, 128, 128, 0.1);
+      border-color: var(--color-primary);
+       span[class*="buttonText"] {
+          color: var(--color-primary) !important;
+       }
+    }
+  
+    body.dark &:not(:disabled) {
+      border-color: var(--color-secondary);
+      span[class*="buttonText"] {
+          color: var(--color-secondary) !important;
+      }
+    }
+    body.dark &:hover:not(:disabled) {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: var(--color-primary);
+       span[class*="buttonText"] {
+          color: var(--color-primary) !important;
+       }
+    }
+  }

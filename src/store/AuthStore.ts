@@ -19,9 +19,11 @@ export class AuthStore {
         this.loadAuthDataFromStorage();
     }
 
-    private saveAuthDataToStorage(data: AuthData): void {
+    private saveAuthDataToStorage(): void {
+        if (!this.token || !this.user) return;
         try {
-            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
+            const dataToSave: AuthData = { token: this.token, user: this.user };
+            localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(dataToSave));
         } catch (error) {
             console.error("Failed to save auth data to Local Storage:", error);
         }
@@ -74,15 +76,15 @@ export class AuthStore {
                 id: email,
                 username: email.split('@')[0],
                 email: email,
+                password: password || 'password123',
             };
-            const authData: AuthData = { token: mockToken, user: mockUser };
 
             runInAction(() => {
-                this.token = authData.token;
-                this.user = authData.user;
+                this.token = mockToken;
+                this.user = mockUser;
                 this.isAuthenticated = true;
             });
-            this.saveAuthDataToStorage(authData);
+            this.saveAuthDataToStorage();
         } else {
             throw new Error('Email is required for login.');
         }
@@ -90,15 +92,32 @@ export class AuthStore {
 
     async register(email: string, username: string, password?: string): Promise<void> {
          console.log(`Attempting registration for: ${email}, Username: ${username}`);
-         if (email && username) {
-             await this.login(email);
+         if (email && username && password) {
+             await this.login(email, password);
          } else {
-             throw new Error('Email and Username are required for registration.');
+             throw new Error('Email, Username, and Password are required for registration.');
          }
     }
 
     logout(): void {
         console.log('Logging out.');
         this.clearAuthData();
+    }
+    async changePassword(newPassword: string): Promise<void> {
+        if (!this.isAuthenticated || !this.user) {
+            throw new Error('User not authenticated.');
+        }
+        if (!newPassword || newPassword.length < 6) {
+             throw new Error('Password must be at least 6 characters long.');
+        }
+
+        console.log(`Changing password for user: ${this.user.email}`);
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        runInAction(() => {
+            this.user = { ...this.user!, password: newPassword };
+        });
+        this.saveAuthDataToStorage();
+        console.log('Password changed successfully');
     }
 }

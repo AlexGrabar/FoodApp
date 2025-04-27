@@ -1,7 +1,8 @@
-import React from 'react';
-import { Routes, Route, Link, NavLink, Navigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link, NavLink, Navigate, useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import { useStores } from '@/store/StoreProvider';
+import cn from 'classnames';
 import RecipeList from '@pages/RecipeList';
 import RecipeDetails from '@pages/RecipeDetails';
 import FavoritesPage from '@pages/FavoritesPage';
@@ -14,6 +15,8 @@ import PrivateRoute from '@components/PrivateRoute';
 import styles from './App.module.scss';
 import Button from '@components/Button';
 import Loader from '@components/Loader';
+import HamburgerIcon from '@components/Icons/HamburgerIcon';
+import CloseIcon from '@components/Icons/CloseIcon';
 
 const HeartIcon = () => (
   <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -25,10 +28,26 @@ const MoonIcon = () => <span aria-hidden="true">🌙</span>;
 
 
 const App: React.FC = observer(() => {
-  const { themeStore, authStore } = useStores();
+const { themeStore, authStore } = useStores();
+const location = useLocation();
+const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const getNavLinkClass = ({ isActive }: { isActive: boolean }): string =>
+  isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink;
 
-  const getNavLinkClass = ({ isActive }: { isActive: boolean }): string =>
-    isActive ? `${styles.navLink} ${styles.navLinkActive}` : styles.navLink;
+  useEffect(() => {
+      setIsMobileMenuOpen(false);
+  }, [location]);
+
+  useEffect(() => {
+      if (isMobileMenuOpen) {
+          document.body.style.overflow = 'hidden';
+      } else {
+          document.body.style.overflow = '';
+      }
+      return () => {
+          document.body.style.overflow = '';
+      };
+  }, [isMobileMenuOpen]);
 
   if (authStore.isLoading) {
       return (
@@ -37,6 +56,61 @@ const App: React.FC = observer(() => {
           </div>
       );
   }
+
+  const handleToggleMobileMenu = () => {
+      setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const renderNavLinks = (isMobile = false) => (
+      <>
+          <li className={styles.navItem}>
+              <NavLink to="/" className={getNavLinkClass} end>Home</NavLink>
+          </li>
+          <li className={styles.navItem}>
+              <NavLink to="/random" className={getNavLinkClass}>Random</NavLink>
+          </li>
+          {authStore.isAuthenticated ? (
+              <>
+                  <li className={styles.navItem}>
+                      <NavLink to="/favorites" className={getNavLinkClass} title="Favorites">
+                          <HeartIcon />
+                      </NavLink>
+                  </li>
+                  <li className={styles.navItem}>
+                      <NavLink to="/shopping-list" className={getNavLinkClass}>Shopping List</NavLink>
+                  </li>
+                  <li className={styles.navItem}>
+                      <NavLink to="/profile" className={getNavLinkClass}>Profile</NavLink>
+                  </li>
+                   <li className={styles.navItem}>
+                        <Button onClick={() => authStore.logout()} className={styles.logoutButton}>Logout</Button>
+                   </li>
+              </>
+          ) : (
+              <>
+                   <li className={styles.navItem}>
+                       <NavLink to="/login" state={{ from: { pathname: '/favorites' } }} className={getNavLinkClass} title="Favorites (Login Required)">
+                            <HeartIcon />
+                       </NavLink>
+                   </li>
+                  <li className={styles.navItem}>
+                      <NavLink to="/login" className={getNavLinkClass}>Login</NavLink>
+                  </li>
+              </>
+          )}
+          {!isMobile && (
+              <li className={styles.navItem}>
+                 <Button
+                    onClick={themeStore.toggleTheme}
+                    title={`Switch to ${themeStore.theme === 'light' ? 'Dark' : 'Light'} Theme`}
+                    className={styles.themeToggleButton}
+                 >
+                    {themeStore.theme === 'light' ? <MoonIcon /> : <SunIcon />}
+                 </Button>
+             </li>
+          )}
+      </>
+  );
 
   return (
     <div className={styles.app}>
@@ -50,54 +124,35 @@ const App: React.FC = observer(() => {
            </Link>
            <nav className={styles.nav}>
               <ul className={styles.navList}>
-                 <li className={styles.navItem}>
-                     <NavLink to="/" className={getNavLinkClass} end>Home</NavLink>
-                 </li>
-                 <li className={styles.navItem}>
-                     <NavLink to="/random" className={getNavLinkClass}>Random</NavLink>
-                 </li>
-                 {authStore.isAuthenticated ? (
-                     <>
-                         <li className={styles.navItem}>
-                             <NavLink to="/favorites" className={getNavLinkClass} title="Favorites">
-                                 <HeartIcon />
-                             </NavLink>
-                         </li>
-                         <li className={styles.navItem}>
-                             <NavLink to="/shopping-list" className={getNavLinkClass}>Shopping List</NavLink>
-                         </li>
-                         <li className={styles.navItem}>
-                             <NavLink to="/profile" className={getNavLinkClass}>Profile</NavLink>
-                         </li>
-                          <li className={styles.navItem}>
-                               <Button onClick={() => authStore.logout()} className={styles.logoutButton}>Logout</Button>
-                          </li>
-                     </>
-                 ) : (
-                     <>
-                          <li className={styles.navItem}>
-                              <NavLink to="/login" state={{ from: { pathname: '/favorites' } }} className={getNavLinkClass} title="Favorites (Login Required)">
-                                   <HeartIcon />
-                              </NavLink>
-                          </li>
-                         <li className={styles.navItem}>
-                             <NavLink to="/login" className={getNavLinkClass}>Login</NavLink>
-                         </li>
-                     </>
-                 )}
-                 <li className={styles.navItem}>
-                    <Button
-                       onClick={themeStore.toggleTheme}
-                       title={`Switch to ${themeStore.theme === 'light' ? 'Dark' : 'Light'} Theme`}
-                       className={styles.themeToggleButton}
-                    >
-                       {themeStore.theme === 'light' ? <MoonIcon /> : <SunIcon />}
-                    </Button>
-                 </li>
+                 {renderNavLinks()}
               </ul>
            </nav>
+            <div className={styles.mobileHeaderControls}>
+                <Button
+                    onClick={themeStore.toggleTheme}
+                    title={`Switch to ${themeStore.theme === 'light' ? 'Dark' : 'Light'} Theme`}
+                    className={cn(styles.themeToggleButton, styles.mobileThemeButton)}
+                >
+                    {themeStore.theme === 'light' ? <MoonIcon /> : <SunIcon />}
+                </Button>
+                <button
+                    className={styles.mobileMenuButton}
+                    onClick={handleToggleMobileMenu}
+                    aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                    aria-expanded={isMobileMenuOpen}
+                >
+                    {isMobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
+                </button>
+            </div>
          </div>
       </header>
+      <div className={cn(styles.mobileNav, { [styles.mobileNavOpen]: isMobileMenuOpen })}>
+          <ul className={styles.mobileNavList}>
+             {renderNavLinks(true)}
+          </ul>
+      </div>
+       {isMobileMenuOpen && <div className={styles.mobileNavOverlay} onClick={handleToggleMobileMenu}></div>}
+
 
       <main className={styles.main}>
         <div className={styles.container}>
@@ -109,13 +164,13 @@ const App: React.FC = observer(() => {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/favorites" element={
-                <PrivateRoute component={FavoritesPage} />
-            }/>
-            <Route path="/profile" element={
-                <PrivateRoute component={ProfilePage} />
-            }/>
-            <Route path="/shopping-list" element={
-                <PrivateRoute component={ShoppingListPage} />
+                 <PrivateRoute component={FavoritesPage} />
+             }/>
+             <Route path="/profile" element={
+                 <PrivateRoute component={ProfilePage} />
+             }/>
+             <Route path="/shopping-list" element={
+                 <PrivateRoute component={ShoppingListPage} />
              }/>
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

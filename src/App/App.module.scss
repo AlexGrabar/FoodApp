@@ -9,7 +9,7 @@
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
-  
+
   @include mobile {
     padding: 0 16px;
   }
@@ -22,7 +22,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  
+
   .container {
     display: flex;
     justify-content: space-between;
@@ -48,11 +48,15 @@
 
 .nav {
   display: flex;
+  @include mobile {
+    display: none;
+  }
 }
 
 .navList {
   display: flex;
   gap: 24px;
+  align-items: center;
 }
 
 .navItem {
@@ -63,14 +67,16 @@
   color: var(--color-primary);
   text-decoration: none;
   font-weight: 500;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease;
   display: inline-flex;
   align-items: center;
   padding: 4px 0;
   border-bottom: 2px solid transparent;
+
   &:hover {
     color: var(--color-accent);
   }
+
   &.navLinkActive {
     color: var(--color-accent);
     border-bottom-color: var(--color-accent);
@@ -99,12 +105,6 @@
   color: inherit;
 }
 
-.navList {
-  display: flex;
-  gap: 24px;
-  align-items: center;
-}
-
 .themeToggleButton {
   background-color: transparent;
   border: 1px solid var(--color-secondary);
@@ -120,26 +120,20 @@
   justify-content: center;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 
-  &:hover {
+  &:hover:not(:disabled) {
     background-color: rgba(128, 128, 128, 0.1);
     border-color: var(--color-primary);
   }
 
-  &:active {
+  &:active:not(:disabled) {
      background-color: rgba(128, 128, 128, 0.2);
   }
 
-  &:hover:not(:disabled),
-  &:active:not(:disabled),
   &:disabled {
       background-color: var(--button-primary-bg-disabled);
+      cursor: not-allowed;
+      opacity: 0.6;
   }
-   &:hover:not(:disabled){
-       background-color: rgba(128, 128, 128, 0.1);
-   }
-    &:active:not(:disabled){
-        background-color: rgba(128, 128, 128, 0.2);
-    }
 
   span[aria-hidden="true"] {
     font-size: 18px;
@@ -151,16 +145,140 @@
   min-height: auto;
   font-size: 14px;
   background-color: transparent;
-  color: var(--color-secondary);
   border: 1px solid var(--color-secondary);
   border-radius: 4px;
-
-  &:hover:not(:disabled) {
-      background-color: rgba(128, 128, 128, 0.1);
-      color: var(--color-primary);
-      border-color: var(--color-primary);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  span[class*="buttonText"] {
+    color: var(--color-primary) !important;
+    transition: color 0.3s ease;
   }
-   body.dark &:hover:not(:disabled) {
-       background-color: rgba(255, 255, 255, 0.1);
+  &:hover:not(:disabled) {
+      background-color: rgba(81, 133, 129, 0.05);
+      border-color: var(--color-accent);
+      span[class*="buttonText"] {
+         color: var(--color-accent) !important;
+      }
+      body.dark & {
+         background-color: rgba(255, 255, 255, 0.1);
+      }
+  }
+   &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      border-color: var(--color-secondary);
+      span[class*="buttonText"] {
+         color: var(--color-secondary) !important;
+      }
    }
+}
+
+.mobileHeaderControls {
+    display: none;
+    gap: 16px;
+    align-items: center;
+
+    @include mobile {
+        display: flex;
+    }
+}
+
+.mobileThemeButton {
+}
+
+.mobileMenuButton {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--color-primary);
+  display: none;
+
+  @include mobile {
+    display: block;
+  }
+
+  svg {
+      display: block;
+  }
+}
+
+.mobileNav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 280px;
+  max-width: 80%;
+  background-color: var(--bg-primary);
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+  padding: 60px 20px 20px;
+  overflow-y: auto;
+}
+
+.mobileNavOpen {
+  transform: translateX(0);
+}
+
+.mobileNavList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+
+  .navItem {
+      width: 100%;
+  }
+
+  .navLink {
+      font-size: 18px;
+      padding: 10px 0;
+      border-bottom: none;
+
+      &.navLinkActive {
+          color: var(--color-accent);
+          border-bottom: none;
+      }
+  }
+   .logoutButton {
+       width: 100%;
+       text-align: left;
+       margin-top: 16px;
+       padding: 10px 0;
+       border: none;
+       border-radius: 0;
+       color: var(--color-secondary);
+       background: none;
+
+       &:hover:not(:disabled) {
+            color: var(--color-accent);
+            background: none;
+       }
+       body.dark &:not(:disabled) {
+            color: var(--color-secondary);
+       }
+        body.dark &:hover:not(:disabled) {
+            color: var(--color-primary);
+       }
+   }
+}
+
+.mobileNavOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+    .mobileNavOpen ~ & {
+        opacity: 1;
+        visibility: visible;
+    }
 }
